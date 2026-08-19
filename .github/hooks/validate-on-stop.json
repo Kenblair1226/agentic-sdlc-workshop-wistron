@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "hooks": {
+    "agentStop": [
+      {
+        "type": "command",
+        "command": "python scripts/agent_stop_hook.py",
+        "cwd": ".",
+        "timeoutSec": 30
+      }
+    ]
+  }
+}
+
