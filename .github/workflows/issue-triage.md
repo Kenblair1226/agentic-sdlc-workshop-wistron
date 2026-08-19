@@ -9,7 +9,6 @@ on:
 engine: copilot
 
 timeout-minutes: 10
-max-daily-ai-credits: 500
 
 permissions:
   contents: read
