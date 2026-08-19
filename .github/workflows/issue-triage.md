@@ -5,7 +5,6 @@ description: Classify workshop issues and decide whether they are ready for codi
 on:
   issues:
     types: [opened, edited, reopened]
-  stop-after: +1h
 
 engine: copilot
 
