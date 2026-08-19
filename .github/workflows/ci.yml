@@ -28,6 +28,18 @@ jobs:
       - name: Install dependencies
         run: python -m pip install -r requirements-dev.txt
 
+      - name: Install GitHub Agentic Workflows
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh extension install github/gh-aw --pin v0.86.2
+
+      - name: Validate Agentic Workflow sources
+        run: |
+          gh aw compile issue-triage --validate
+          git diff --exit-code -- \
+            .github/workflows/issue-triage.lock.yml \
+            .github/aw/actions-lock.json
+
       - name: Validate starter application
         run: python scripts/validate.py
 
