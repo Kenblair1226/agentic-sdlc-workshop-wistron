@@ -1,11 +1,12 @@
 ---
 on:
   issues:
-    types: [opened, edited]
+    types: [opened, edited, reopened]
 
 permissions:
   contents: read
   issues: read
+  copilot-requests: write
 
 safe-outputs:
   add-labels:
