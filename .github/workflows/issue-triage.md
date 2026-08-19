@@ -13,6 +13,7 @@ timeout-minutes: 10
 permissions:
   contents: read
   issues: read
+  copilot-requests: write
 
 safe-outputs:
   add-labels:
