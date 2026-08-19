@@ -9,6 +9,7 @@ permissions:
   copilot-requests: write
 
 safe-outputs:
+  threat-detection: false
   add-labels:
     allowed:
       - bug
