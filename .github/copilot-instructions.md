@@ -23,6 +23,12 @@ For the Lab 1 feature, also run:
 pytest -q -m lab1
 ```
 
+For changes to a GitHub Agentic Workflows source file, also run:
+
+```bash
+gh aw compile <workflow-name> --validate
+```
+
 ## Engineering rules
 
 - Preserve existing endpoint response shapes unless the issue explicitly changes them.
@@ -34,9 +40,10 @@ pytest -q -m lab1
 - Add or update tests for every behavior change and regression fix.
 - Prefer explicit types and small functions over broad exception handling.
 - Do not disable Ruff, tests, CodeQL, or security checks to make a change pass.
+- Never edit generated `.github/workflows/*.lock.yml` files directly. Update the matching
+  Markdown source, compile it, and commit both files.
 
 ## Pull request expectations
 
 Summarize the behavior change, security impact, tests run, and any assumptions. Call out
 requirements that need human product or security decisions.
-

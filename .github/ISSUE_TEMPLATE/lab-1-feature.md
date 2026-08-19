@@ -9,7 +9,8 @@ assignees: []
 Add search to the products API.
 
 <!--
-This issue is intentionally incomplete. Before assigning it to the coding agent, add:
+This issue is intentionally incomplete. Create it once in this state and inspect the
+Agentic Issue Triage result. Then edit it to add:
 - user value and scope
 - query parameter behavior
 - sorting rules
@@ -20,5 +21,6 @@ This issue is intentionally incomplete. Before assigning it to the coding agent,
 - acceptance criteria
 
 Use docs/lab-1-agentic-workflow.md as the product requirement.
+Only assign the coding agent after a human verifies the final issue and the triage workflow
+adds `ready-for-agent`.
 -->
-
