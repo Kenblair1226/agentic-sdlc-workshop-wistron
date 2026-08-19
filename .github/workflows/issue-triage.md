@@ -15,6 +15,28 @@ permissions:
   issues: read
   copilot-requests: write
 
+jobs:
+  agent:
+    pre-steps:
+      - name: Skip redundant ripgrep install
+        shell: bash
+        run: |
+          printf '%s\n' \
+            '#!/usr/bin/env bash' \
+            'set -euo pipefail' \
+            'echo "Skipping redundant ripgrep install; Copilot CLI bundles its search runtime."' \
+            > "${RUNNER_TEMP}/gh-aw/actions/install_ripgrep.sh"
+  detection:
+    pre-steps:
+      - name: Skip redundant ripgrep install
+        shell: bash
+        run: |
+          printf '%s\n' \
+            '#!/usr/bin/env bash' \
+            'set -euo pipefail' \
+            'echo "Skipping redundant ripgrep install; Copilot CLI bundles its search runtime."' \
+            > "${RUNNER_TEMP}/gh-aw/actions/install_ripgrep.sh"
+
 safe-outputs:
   add-labels:
     allowed:
