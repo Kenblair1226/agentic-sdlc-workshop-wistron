@@ -5,7 +5,7 @@
 | Segment | Time |
 |---|---:|
 | Coding agent concepts and Issue -> PR demo | 25 min |
-| Lab 1 | 35 min |
+| Lab 1: Agentic Issue Triage -> Coding Agent PR | 45 min |
 | Break | 10 min |
 | Security/review concepts and demo | 20 min |
 | Lab 2 | 30 min |
@@ -17,6 +17,11 @@
 
 - [ ] Repository is created from this starter and `main` is protected as intended.
 - [ ] Copilot coding agent is enabled for a test student account.
+- [ ] `gh-aw` is installed and `issue-triage.md` compiles without warnings.
+- [ ] Agentic Issue Triage authentication is configured without exposing its token.
+- [ ] Required workshop labels exist, including `needs-info` and `ready-for-agent`.
+- [ ] An incomplete test Issue transitions to `needs-info`; after editing, it transitions to
+      `ready-for-agent`.
 - [ ] GitHub Actions can run in the organization.
 - [ ] Advanced CodeQL setup is accepted for this repository; default setup is not enabled.
 - [ ] Copilot code review is available in the PR reviewer menu.
@@ -35,6 +40,7 @@ source .venv/bin/activate
 python -m pip install -r requirements-dev.txt
 python scripts/preflight.py
 python scripts/validate.py
+gh aw compile issue-triage --validate
 ```
 
 The Lab 1 acceptance suite should fail on the starter and pass only after implementation:
@@ -42,6 +48,25 @@ The Lab 1 acceptance suite should fail on the starter and pass only after implem
 ```bash
 pytest -q -m lab1
 ```
+
+## Prepare Agentic Issue Triage
+
+For every repository created from the starter:
+
+```bash
+gh extension install github/gh-aw --pin v0.86.2
+gh label clone Kenblair1226/agentic-sdlc-workshop-wistron --force
+gh secret set COPILOT_GITHUB_TOKEN
+gh aw compile issue-triage --validate
+```
+
+Use a fine-grained PAT with only **Copilot Requests: Read**, or use organization centralized
+billing and the documented `copilot-requests: write` permission. Never distribute one personal
+token to students or place a token in repository files.
+
+Open a disposable Issue containing only `Add product search`. Confirm the workflow applies
+`needs-info` and posts one evidence-based comment. Edit the Issue with the Lab 1 requirements
+and confirm it changes to `ready-for-agent`. Close the disposable Issue after the check.
 
 ## Prepare the Lab 2 demonstration PR
 
@@ -63,6 +88,8 @@ SARIF excerpts of the verified findings as the fallback.
 - Pair students when the class has more than 20 participants to reduce agent queue pressure.
 - At minute 15 of each lab, move blocked students to an instructor-prepared PR/session.
 - Demonstrate one imperfect agent result; do not present the agent as infallible.
+- Require a human to verify `ready-for-agent`; the label is not an approval.
+- Show that the triage Agent cannot close issues or assign Coding Agent through its safe outputs.
 - Require students to cite acceptance criteria or findings when giving follow-up feedback.
 - Never merge the intentionally vulnerable Lab 2 PR.
 - Do not use real secrets to demonstrate secret scanning.
@@ -72,6 +99,7 @@ SARIF excerpts of the verified findings as the fallback.
 Prepare these before the event outside the student starter branch:
 
 - screen recording of a successful Coding Agent session
+- screen recording of both incomplete and ready Agentic Issue Triage runs
 - screenshot/SARIF excerpt of the Lab 2 CodeQL findings
 - completed Lab 1 and remediated Lab 2 PRs in an instructor-only repository or branch
 

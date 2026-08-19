@@ -18,6 +18,7 @@ CI / CodeQL 與 Repository Ruleset 串成從 prompt 到 governed merge 的完整
 
 | 階段 | Repository artifact | 用途 |
 |---|---|---|
+| Agentic intake | `.github/workflows/issue-triage.md`、`.lock.yml` | 以 read-only Agent 分析 Issue，透過 safe outputs 產生 bounded triage 結果 |
 | Context | `.github/copilot-instructions.md` | Always-on project rules 與 validation commands |
 | Domain workflow | `.github/skills/secure-fastapi-endpoint/SKILL.md` | 可重複使用的 secure endpoint procedure |
 | Environment | `.github/workflows/copilot-setup-steps.yml` | 固定 cloud-agent runtime 與 dependencies |
@@ -107,6 +108,8 @@ Run the targeted test and repository validation before updating this PR.
 ## 討論
 
 ```text
+Issue → Agentic Triage → Human Readiness Gate
+        ↓
 Instructions / Skills
         ↓
 Setup Steps → Agent Change → Stop Hook
@@ -117,6 +120,7 @@ Repository Ruleset → Human Approval → Merge
 ```
 
 - Instructions 與 Skills 影響 model judgment。
+- Agentic triage 將不可信 Issue 轉成受限的 labels 與 evidence，但不取代人工 approval。
 - Setup steps 與 hooks 讓執行結果可重複。
 - CI 與 CodeQL 提供獨立 evidence。
 - Ruleset 對 Agent 與人工 contributor 一視同仁。
