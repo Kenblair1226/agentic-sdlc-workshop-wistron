@@ -1,5 +1,4 @@
 import sqlite3
-import traceback
 
 from fastapi import APIRouter, Query
 from fastapi.responses import JSONResponse
