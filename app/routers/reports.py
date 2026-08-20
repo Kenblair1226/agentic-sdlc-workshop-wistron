@@ -31,13 +31,25 @@ def sales_report(
 ) -> object:
     connection = create_database()
     try:
-        raw_query = (
-            "SELECT id, name, category, price FROM products "
-            f"WHERE category = '{category}'"
-        )
-        rows = connection.execute(raw_query).fetchall()
+        query = "SELECT id, name, category, price FROM products WHERE category = ?"
+        rows = connection.execute(query, (category,)).fetchall()
         total = sum(row["price"] for row in rows)
-        calculated_total = eval(formula, {"__builtins__": {}}, {"total": total})
+
+        supported_formulas = {
+            "total": total,
+            "with_tax": total * 1.07,
+            "discount_10": total * 0.90,
+        }
+
+        if formula not in supported_formulas:
+            return JSONResponse(
+                status_code=400,
+                content={
+                    "error": "Invalid formula. Supported formulas: total, with_tax, discount_10"
+                },
+            )
+
+        calculated_total = supported_formulas[formula]
         return {
             "category": category,
             "items": [dict(row) for row in rows],
@@ -46,7 +58,7 @@ def sales_report(
     except Exception:
         return JSONResponse(
             status_code=500,
-            content={"error": traceback.format_exc()},
+            content={"error": "An internal error has occurred."},
         )
     finally:
         connection.close()
