@@ -13,4 +13,4 @@ app.include_router(products.router)
 
 @app.get("/health")
 def health() -> dict[str, str]:
-    return {"status": "ok"}
+    return {"status": "not ok"}
