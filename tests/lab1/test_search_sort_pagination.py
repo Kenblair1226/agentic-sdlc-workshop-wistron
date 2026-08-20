@@ -79,8 +79,14 @@ def test_search_sort_and_pagination_can_be_combined(client: TestClient) -> None:
         ({"sort": "unknown"}, "sort"),
         ({"order": "sideways"}, "order"),
         ({"page": 0}, "page"),
+        ({"page": "abc"}, "page"),
+        ({"page": "1.5"}, "page"),
+        ({"page": -1}, "page"),
         ({"page_size": 0}, "page_size"),
         ({"page_size": 21}, "page_size"),
+        ({"page_size": "abc"}, "page_size"),
+        ({"page_size": "1.5"}, "page_size"),
+        ({"page_size": -1}, "page_size"),
     ],
 )
 def test_invalid_query_parameters_return_422(
